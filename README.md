@@ -21,7 +21,7 @@ O sistema possui as seguinte funcionalidades:
 - Configurar parâmetros para envio de medição(Host, Porta, Intervalo de medição e código do contador)
 - Definir taxa de consumo de energia
 
-## Seções 
+### Seções 
 
 &nbsp;&nbsp;&nbsp;[**1.** Diagrama do projeto](#secao1)
 
