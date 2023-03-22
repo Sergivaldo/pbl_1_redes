@@ -36,12 +36,12 @@ das entidades do sistema(cliente, servidor e medidor). No socket da comunicaçã
 
 ## Rotas utilizadas
 
-|      **Rota**      	| **Métodos aceitos** 	|              **Parâmetros de consulta**             	|                                            **Descrição**                                            	|
-|:------------------:	|:-------------------:	|:---------------------------------------------------:	|:---------------------------------------------------------------------------------------------------:	|
-|     */cliente*     	|    `POST`, `GET`    	|                   id(obrigatório)                   	|                          Rota utilizada para consultar e cadastrar clientes                         	|
-| */consumo_energia* 	|        `GET`        	| id(obrigatório), offset(opcional) e limit(opcional) 	|         Rota utilizada para consultar consumo de energia total<br>e em determinados horários        	|
-|      */fatura*     	|        `GET`        	|                   id(obrigatório)                   	|                            Rota utilizada para gerar fatura de pagamento                            	|
-|  */alerta_consumo* 	|        `GET`        	|                   id(obrigatório)                   	| Rota utilizada para consultar alertas de consumo excessivo<br>e grande variação na conta do usuário 	|
+|      **Rota**      	| **Métodos aceitos** 	|              **Parâmetros de consulta**             	|                                           **Descrição**                                          	|
+|:------------------:	|:-------------------:	|:---------------------------------------------------:	|:------------------------------------------------------------------------------------------------:	|
+|     */cliente*     	|    `POST`, `GET`    	|                   id(obrigatório)                   	|                        Rota utilizada para consultar e cadastrar clientes                        	|
+| */consumo_energia* 	|        `GET`        	| id(obrigatório), offset(opcional) e limit(opcional) 	|         Rota utilizada para consultar consumo de energia total e em determinados horários        	|
+|      */fatura*     	|        `GET`        	|                   id(obrigatório)                   	|                           Rota utilizada para gerar fatura de pagamento                          	|
+|  */alerta_consumo* 	|        `GET`        	|                   id(obrigatório)                   	| Rota utilizada para consultar alertas de consumo excessivo e grande variação na conta do usuário 	|
 
 #### ⬆️ [Voltar ao topo](#inicio)
 
