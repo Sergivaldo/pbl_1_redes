@@ -1,0 +1,18 @@
+version: "2"
+services:
+  server:
+    image: pbl1_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - /app
+    ports:
+      - "4444:4444"
+      - "4555:4555"
+
+# larsid06 - server
+# larsid03 - medidor
+# larsid05 - medidor
+# larsid09 - medidor

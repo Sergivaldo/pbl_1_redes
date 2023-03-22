@@ -1,0 +1,12 @@
+version: "2"
+services:
+  server:
+    image: pbl1_meter
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - /app
