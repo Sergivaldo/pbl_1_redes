@@ -23,9 +23,13 @@ O sistema possui as seguinte funcionalidades:
 
 ### Instalação do projeto
 
-#### Executando o arquivo jar
+#### Executando o arquivo jar do servidor
 
-`java -jar pbl1_redes-1.0-SNAPSHOT-jar-with-dependencies.jar `
+`java -jar pbl1_redes-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
+#### Executando o arquivo jar do medidor
+
+`javar -jar pbl1_redes_medidor-1.0-jar-with-dependencies.jar` 
 
 #### Executando através do docker compose
 
@@ -187,6 +191,16 @@ Além dessas, existe também dois parâmetros opcionais que são usados em conju
 http://localhost:8080/cliente?id=0
 ```
 
+Resposta:
+
+```
+{
+  "id":0,
+  "cliente":"nome do usuario",
+  "codigo_medidor":00000
+}
+```
+
 
 *POST /cliente*
 
@@ -202,23 +216,90 @@ http://localhost:8080/cliente
 http://localhost:8080/alerta_consumo?id=0
 ```
 
+Resposta:
+
+```
+{
+   "cliente":"sergivaldo",
+   "consumo":{
+      "messagem":"estado do consumo(normal, excessivo)",
+      "consumo_medio":"0.00",
+      "limite_consumo_normal":"00.00"
+   },
+   "conta":{
+      "messagem":"estado das contas(normal, grande variação)",
+      "preco_medio":"0.00",
+      "limite_preco_normal":"00.00"
+   }
+}
+```
+
 *GET /consumo_energia*
 
 ```
 http://localhost:8080/consumo_energia?id=0
 ```
 
+Resposta:
+
+```
+{
+   "id":0,
+   "cliente":"nome do usuario",
+   "consumo_total":"0.00",
+   "consumos":[
+      {
+         "consumo":0.00,
+         "horario_medicao":"dd/MM/yyyy HH:mm:ss"
+      }
+   ]
+}
+```
+
 *GET /consumo_energia* com parâmetros de consulta
 
 ```
-http://localhost:8080/consumo_energia?id=0&offset=5&limit=15
+http://localhost:8080/consumo_energia?id=0&offset=0&limit=3
 ```
 
+Resposta:
+
+```
+{
+   "id":0,
+   "cliente":"nome do usuario",
+   "consumo_total":"0.00",
+   "consumos":[
+      {
+         "consumo":0.00,
+         "horario_medicao":"dd/MM/yyyy HH:mm:ss"
+      },
+      {
+         "consumo":0.00,
+         "horario_medicao":"dd/MM/yyyy HH:mm:ss"
+      },
+      {
+         "consumo":0.00,
+         "horario_medicao":"dd/MM/yyyy HH:mm:ss"
+      }
+   ]
+}
+```
 *GET /fatura*
 
 ```
 http://localhost:8080/fatura?id=0
 ```
+
+Resposta:
+```
+{
+  "nome":"nome do usuário",
+  "codigo_medidor":"0000000",
+  "preco":"00.00"
+}
+```
+
 
 ### Padrão MVC(Model, View, Controller)
 
