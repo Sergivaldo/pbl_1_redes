@@ -21,6 +21,16 @@ O sistema possui as seguinte funcionalidades:
 - Configurar parâmetros para envio de medição(Host, Porta, Intervalo de medição e código do contador)
 - Definir taxa de consumo de energia
 
+### Instalação do projeto
+
+#### Executando o arquivo jar
+
+`java -jar pbl1_redes-1.0-SNAPSHOT-jar-with-dependencies.jar `
+
+#### Executando através do docker compose
+
+`docker compose up`
+
 ### Seções 
 
 &nbsp;&nbsp;&nbsp;[**1.** Diagrama do projeto](#secao1)
@@ -121,9 +131,15 @@ Content-Type: application/json
 }
 ```
 
-### Traduzindo as mensagens recebidas
+### Tradução das mensagens recebidas
 
 Após a etapa anterior, era necessário fazer o socket entender essa estrutura. Como as mensagens recebidas são texto, então a forma mais eficiente de traduzir essa mensagem foi através de manipulação de strings, assim foi possível separar cada parte da mensagem(primeira linha,cabeçalho e corpo) e trabalhar individualmente com cada uma. Com a requisição em pedaços, a primeira coisa a se fazer antes de enviá-la para a API foi validar se a estrutura é correta, montando uma representação de uma requisição HTTP para a API REST caso as validações sejam satisfeitas.
+
+### Múltiplos clientes no servidor
+
+Após fazer o socket entender mensagens HTTP, foi necessário fazer com que ele pudesse receber requisições de múltiplos clientes ao mesmo tempo, para isso foi necessário fazer a utilizando de threads.
+
+O funcionamento da conexão do servidor com o cliente acontece da seguinte forma: O servidor fica esperando um cliente se conectar e após a conexão ser feita o servidor irá processar a sua requisição, entretanto, o servidor só processa a requisição do próximo usuário após terminar a do atual. A forma de resolver esse problema é após aceitar a conexão com o cliente o servidor criar uma nova thread para o usuário, essa thread será a responsável por gerenciar a solicitação. Sendo assim, agora cada usuário terá sua própria thread o que permite o servidor receber vários clientes ao mesmo tempo.
 
 ## API REST
 
