@@ -146,14 +146,63 @@ gerar faturas. Para acesso a essas funcionalidades a aplicação dispões de rot
 
 ### Rotas utilizadas
 
-|      **Rota**      	| **Métodos aceitos** 	|              **Parâmetros de consulta**             	|                                           **Descrição**                                          	|
-|:------------------:	|:-------------------:	|:---------------------------------------------------:	|:------------------------------------------------------------------------------------------------:	|
-|     */cliente*     	|    `POST`, `GET`    	|                   id(obrigatório)                   	|                        Rota utilizada para consultar e cadastrar clientes                        	|
-| */consumo_energia* 	|        `GET`        	| id(obrigatório), offset(opcional) e limit(opcional) 	|         Rota utilizada para consultar consumo de energia total e em determinados horários        	|
-|      */fatura*     	|        `GET`        	|                   id(obrigatório)                   	|                           Rota utilizada para gerar fatura de pagamento                          	|
-|  */alerta_consumo* 	|        `GET`        	|                   id(obrigatório)                   	| Rota utilizada para consultar alertas de consumo excessivo e grande variação na conta do usuário 	|
+|      **Rota**      	| **Métodos aceitos** 	|              **Parâmetros de consulta**             	| **Corpo da mensagem** 	|                                           **Descrição**                                          	|
+|:------------------:	|:-------------------:	|:---------------------------------------------------:	|:---------------------:	|:------------------------------------------------------------------------------------------------:	|
+|     */cliente*     	|    `POST`, `GET`    	|           `GET` - id(obrigatório)           	|   `POST`- nome  	|                        Rota utilizada para consultar e cadastrar clientes                        	|
+| */consumo_energia* 	|        `GET`        	| id(obrigatório), offset(opcional) e limit(opcional) 	|           -           	|         Rota utilizada para consultar consumo de energia total e em determinados horários        	|
+|      */fatura*     	|        `GET`        	|                   id(obrigatório)                   	|           -           	|                           Rota utilizada para gerar fatura de pagamento                          	|
+|  */alerta_consumo* 	|        `GET`        	|                   id(obrigatório)                   	|           -           	| Rota utilizada para consultar alertas de consumo excessivo e grande variação na conta do usuário 	|
 
-A API possui no total 4 rotas para acesso as informações do cliente, cada rota aceita apenas o método GET em requisições, com exceção da rota */cliente* que aceita também o método `POST`. Se por acaso uma rota inválida for passada, o servidor irá retornar uma resposta de erro com status `405 Method Not Allowed ` caso o servidor implemente o método, mas o mesmo não é aceito na rota especificada, caso o método não esteja implementado no servidor, será retornado uma resposta de erro com status `501 Not Implemented`.
+A API possui no total 4 rotas para acesso as informações do cliente, cada rota aceita apenas o método GET em requisições, com exceção da rota */cliente* que aceita também o método `POST`.
+
+Se por acaso uma rota inválida for passada, o servidor irá retornar uma resposta de erro com status `400 Method Bad Request`. Caso o servidor não implemente o método passado na requisição, será retornada uma resposta de erro com status `501 Not Implemented` e caso um método seja reconhecido pelo servidor, mas a rota passada não o aceita, será retornada então uma mensagem de erro com status `405 Method Not Allowed.
+
+
+As rotas também aceitam parâmetros de consulta para especificar informações necessárias para que a requisição ocorra com sucesso. Obrigatoriamente todas as rotas devem utilizar o parâmetro **id**, que especifica o id do cliente a ser buscado, com exceção do método `POST` da rota */cliente* que não recebe parâmetros de consulta e sim um corpo que contém o nome do usuário a ser cadastrado.
+
+Além dessas, existe também dois parâmetros opcionais que são usados em conjunto para fazer a paginação dos consumos do usuário, sendo estes o **offset** e **limit**. O offset determina o id do primeiro consumo, o **limit** irá definir a quantidade de informações(consumos) que a pagina conterá. Por padrão a rota já implementa essa paginação, pegando os 6 últimos valores da lista de consumos e caso esses parâmetros sejam utilizados incorretamentes, essa página padrão também será utilizada.
+
+
+#### Exemplos de uso das rotas
+
+*GET /cliente*
+
+```
+http://localhost:8080/cliente?id=0
+```
+
+
+*POST /cliente*
+
+```
+http://localhost:8080/cliente
+
+{"nome":"usuario"}
+```
+
+*GET /alerta_consumo*
+
+```
+http://localhost:8080/alerta_consumo?id=0
+```
+
+*GET /consumo_energia*
+
+```
+http://localhost:8080/consumo_energia?id=0
+```
+
+*GET /consumo_energia* com parâmetros de consulta
+
+```
+http://localhost:8080/consumo_energia?id=0&offset=5&limit=15
+```
+
+*GET /fatura*
+
+```
+http://localhost:8080/fatura?id=0
+```
 
 ### Padrão MVC(Model, View, Controller)
 
