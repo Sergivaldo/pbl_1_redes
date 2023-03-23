@@ -42,7 +42,8 @@ O sistema possui as seguinte funcionalidades:
 
 ## Diagrama do projeto
 
-![Diagrama pbl1png](https://user-images.githubusercontent.com/72475500/226783949-0c05ae80-5805-47bc-a7bc-76a4a9e8ebb6.png)
+![Diagrama pbl1png](https://user-images.githubusercontent.com/72475500/227080946-8667a983-8493-41df-b975-191ec4e137c2.png)
+
 
 O diagrama acima mostra o fluxo das mensagens trocadas entre clientes e servidor. No sistema foi utilizado os sockets para fazer a comunicação entre cada uma
 das entidades do sistema(cliente, servidor e medidor).
