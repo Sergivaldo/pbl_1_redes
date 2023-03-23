@@ -27,12 +27,33 @@ O sistema possui as seguinte funcionalidades:
 
 &nbsp;&nbsp;&nbsp;[**2.** Rotas utilizadas](#secao2)
 
+## Conceitos
+
+**HTTP** - Protocolo de rede da camada de aplicação que permite a obtenção de recursos. É a base de qualquer troca de dados na Web e um protocolo cliente-servidor, o que significa que as requisições são iniciadas pelo destinatário, geralmente um navegador da Web. O HTTP é enviado sobre um protocolo da camada de transporte, o TCP.
+
+**API REST** -
+
+**TCP** -
+
+**UDP** -
+
+**Sockets** -
+
+
 ## Diagrama do projeto
 
 ![Diagrama pbl1png](https://user-images.githubusercontent.com/72475500/226783949-0c05ae80-5805-47bc-a7bc-76a4a9e8ebb6.png)
 
 O diagrama acima mostra o fluxo das mensagens trocadas entre clientes e servidor. No sistema foi utilizado os sockets para fazer a comunicação entre cada uma
-das entidades do sistema(cliente, servidor e medidor). No socket da comunicação entre medidor e servidor foi utilizado o protocolo UDP já que a troca de mensagens entre estes deve ser menos custoza, pois, como o medidor sempre enviará mensagens de forma síncrona(em um determinado intervalo de tempo).
+das entidades do sistema(cliente, servidor e medidor).
+
+#### Comunicação entre consumidor e API REST
+
+Na comunicação entre o cliente(consumidor) e o servidor foi utilizado um socket TCP para criar um servidor que entendesse mensagens HTTP. Como mostrado na figura, o cliente envia uma mensagem para o servidor, ao chegar, será verificada se a estrutura desta é válida, caso seja, a mesma é convertida para um objeto que representa uma requisição HTTP, onde este será enviado para a API REST, será processado e poderá fazer buscas por informações na base de dados.
+
+#### Comunicação entre dispositivo medidor e servidor
+
+Para a comunicação entre o medidor e o servidor também foi utilizado um socket, entretanto, utilizando um protocolo diferente, o UDP. O medidor ficará enviando dados para o servidor que os salvará na base de dados. Como o medidor inteligente estará enviando mensagens ao servidor de forma síncrona(em um determinado intervalo de tempo) utilizar um protocolo como o TCP junto com HTTP seria muito custoso já que uma mensagem de resposta seria retornada para o dispositivo e cada requisição passaria por um processo de verificação para checar se sua estrutura está correta o que não é necessário nessa transmissão, pois um simples protocolo que especifica que no corpo mensagem deverá conter o código do medidor, horário e valor da medição já é o suficiente.
 
 ## Rotas utilizadas
 
