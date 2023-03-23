@@ -162,7 +162,13 @@ REST(Representational State Transfer ou Transferência de Estado Representaciona
 Para a comunicação do consumidor com o sistema, foi utilizado de uma API REST onde o usuário pode fazer consultas relacionadas ao seu consumo e também
 gerar faturas. Para acesso a essas funcionalidades a aplicação dispões de rotas específicas para cada recurso.
 
+### Padrão MVC(Model, View, Controller)
 
+A API REST foi dividida em camadas utilizando o Padrão MVC(Model, View, Controller) nesse padrão o projeto é dividido em três camadas, cada uma responsável por um aspecto da aplicação. A view é a camada de visualização onde são retornadas ao usuário as informações que ele solicitou, a camada de controle esta toda a regra de negócio de uma view, são os controllers que conversam com a próxima camada, a camada de modelo(Model), nessa camada fica todas as entidades do sistema. Para deixar o código mais coeso, foi também implementada uma camada de repositórios, essa camada é a responsável por se comunicar com a base de dados, fazendo leitura ou escrita.
+
+Cada rota da aplicação possui uma view, que possui um controller e esta se comunica com os repositórios e modelos necessários.
+
+![Diagrama API - pbl1 redes drawio](https://user-images.githubusercontent.com/72475500/227214755-a08e77b9-0a80-4cae-8d40-7071542f6c9d.png)
 
 ### Rotas utilizadas
 
@@ -299,15 +305,6 @@ Resposta:
   "preco":"00.00"
 }
 ```
-
-
-### Padrão MVC(Model, View, Controller)
-
-A API REST foi dividida em camadas utilizando o Padrão MVC(Model, View, Controller) nesse padrão o projeto é dividido em três camadas, cada uma responsável por um aspecto da aplicação. A view é a camada de visualização onde são retornadas ao usuário as informações que ele solicitou, a camada de controle esta toda a regra de negócio de uma view, são os controllers que conversam com a próxima camada, a camada de modelo(Model), nessa camada fica todas as entidades do sistema. Para deixar o código mais coeso, foi também implementada uma camada de repositórios, essa camada é a responsável por se comunicar com a base de dados, fazendo leitura ou escrita.
-
-Cada rota da aplicação possui uma view, que possui um controller e esta se comunica com os repositórios e modelos necessários.
-
-![Diagrama API - pbl1 redes drawio](https://user-images.githubusercontent.com/72475500/227214755-a08e77b9-0a80-4cae-8d40-7071542f6c9d.png)
 
 
 #### ⬆️ [Voltar ao topo](#inicio)
