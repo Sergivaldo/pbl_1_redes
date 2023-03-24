@@ -1,11 +1,13 @@
 package br.uefs.api_rest.pagination;
 
-import br.uefs.api_rest.model.ClientModel;
 import br.uefs.api_rest.model.ConsumptionModel;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe que cria paginas de uma determinada lista de dados
+ */
 public class PageManager {
     private final List<ConsumptionModel> data;
 
@@ -13,6 +15,12 @@ public class PageManager {
         this.data = data;
     }
 
+    /**
+     * Cria uma página com base no offset e limit passados pelo usuário
+     * @param paginationOffset id do primeiro dado
+     * @param paginationLimit quantidade de dados que serão pegos
+     * @return Lista com os dados
+     */
     public List<ConsumptionModel> createPage(int paginationOffset,int paginationLimit){
         List page;
 
@@ -28,6 +36,10 @@ public class PageManager {
         return page;
     }
 
+    /**
+     * Cria uma página com base no offset e limit padrão
+     * @return Lista com os dados
+     */
     public List<ConsumptionModel> createPage(){
         List page;
         int default_limit = 10;

@@ -50,9 +50,9 @@ public class TCPMessage {
     }
 
     /**
-     *
+     * Lê e Verifica os cabeçalhos da mensagem recebida e converte em um objeto HttpHeader
      * @return HTTPHeader(HashMap)
-     * @throws IOException
+     * @throws IOException Caso ocorra um erro de I/O
      */
     private HttpHeader<String,String> setHttpRequestHeaders() throws IOException{
         String line;
@@ -65,6 +65,12 @@ public class TCPMessage {
         return headers.isEmpty()?null:headers;
     }
 
+    /**
+     * Lê e Verifica o método da mensagem recebida e converte em um objeto HttpMethod
+     * @param method String com o método HTTP da mensagem recebida
+     * @return Representação de um método HTTP no formato de Enum
+     * @throws InvalidMethodException Caso o método da mensagem não seja válido
+     */
     private HttpMethod setHttpRequestMethod(String method) throws InvalidMethodException{
 
         for(HttpMethod httpMethod: HttpMethod.values()){
@@ -76,9 +82,20 @@ public class TCPMessage {
         throw new InvalidMethodException();
     }
 
+    /**
+     * Lê a rota da mensagem HTTP que pode conter parâmetros e pega apenas o caminho
+     * @param path rota da mensagem HTTP
+     * @return Caminho da mensagem HTTP
+     */
     private String setHttpRequestPath(String path){
         return path.indexOf("?") != -1? path.substring(0,path.indexOf("?")):path;
     }
+
+    /**
+     * Pega o corpo da mensagem caso exista.
+     * @return String com o corpo da mensagem HTTP
+     * @throws IOException Caso ocorra um erro de I/O
+     */
 
     private String setHttpBody() throws IOException{
 
@@ -91,7 +108,13 @@ public class TCPMessage {
 
         return body == null || body.isEmpty()? "":body;
     }
-    
+
+    /**
+     * Verifica se o a versão do HTTP é compatível
+     * @param httpVersion Versão do HTTP da mensagem recebida
+     * @return String com versão HTTP
+     * @throws IncompatibleHtppVersionException Caso a versão do HTTP seja incompatível com a da API
+     */
     private String setRequestHttpVersion(String httpVersion) throws IncompatibleHtppVersionException {
         if(httpVersion.equals(Constants.HTTP_PROTOCOL_VERSION.getValue()))
             return httpVersion;
@@ -99,6 +122,12 @@ public class TCPMessage {
         throw new IncompatibleHtppVersionException();
     }
 
+    /**
+     * Verifica e pega os parâmetros da mensagem HTTP o tranformando em um objeto Map
+     * @param url Rota da mensagem que pode conter parâmetros
+     * @return Map com todos os parâmetros da requisição recebida
+     * @throws InvalidQueryParameterException Caso a estrutura dos parâmetros esteja incorreta
+     */
     private Map<String,String> setHttpRequestParameters(String url) throws InvalidQueryParameterException{
         Map<String,String> queryParameters = new HashMap<>();
         if(url.indexOf("?") > -1){

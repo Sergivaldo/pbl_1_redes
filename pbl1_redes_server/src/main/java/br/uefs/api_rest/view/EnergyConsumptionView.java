@@ -10,6 +10,12 @@ import com.google.gson.JsonObject;
 import java.util.Optional;
 
 public class EnergyConsumptionView implements IView {
+
+    /**
+     * Retorna para o usuário o seu consumo de energia
+     * @param request requisição feita pelo cliente
+     * @return resposta HTTP com resultado da requisição
+     */
     @Override
     public HttpResponse get(HttpRequest request) {
         ClientController controller = new ClientController();

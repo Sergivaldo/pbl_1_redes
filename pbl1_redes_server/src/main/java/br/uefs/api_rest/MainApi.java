@@ -28,6 +28,9 @@ public class MainApi {
         return instance;
     }
 
+    /**
+     * Inicializa as rotas da API
+     */
     private void InitRoutes() {
         routeManager.addRoute("/consumo_energia", new EnergyConsumptionView());
         routeManager.addRoute("/fatura", new InvoiceView());

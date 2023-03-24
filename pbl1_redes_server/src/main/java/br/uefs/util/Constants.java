@@ -1,5 +1,8 @@
 package br.uefs.util;
 
+/**
+ * Enum que contém algumas constantes utilizadas no sistema
+ */
 public enum Constants {
     CRLF("\r\n"),
     HTTP_PROTOCOL_VERSION("HTTP/1.1"),

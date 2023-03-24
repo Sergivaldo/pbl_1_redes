@@ -2,6 +2,9 @@ package br.uefs.api_rest.model;
 
 import java.math.BigDecimal;
 
+/**
+ * Classe que representa um consumo
+ */
 public class ConsumptionModel {
     private String dateTime;
     private BigDecimal consumption;

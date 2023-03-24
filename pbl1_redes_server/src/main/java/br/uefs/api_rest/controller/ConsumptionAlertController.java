@@ -24,6 +24,12 @@ public class ConsumptionAlertController {
         this.repository = new ClientRepository();
     }
 
+    /**
+     * Cria um novo alerta com um relatório do consumo de energia e fatura
+     * @param parameters parâmetro de consulta com id do cliente
+     * @return Json com possível alerta
+     * @throws InvalidParameterException Caso seja passado um parâmetro inválido
+     */
     public Optional<JsonObject> createConsumptionAlert(Map<String,String> parameters) throws InvalidParameterException {
         String[] expectedParameters = {"id"};
         Optional<JsonObject> json;
@@ -57,6 +63,11 @@ public class ConsumptionAlertController {
         return json;
     }
 
+    /**
+     * Verifica se o consumo do cliente está em excesso
+     * @param client client que receberá o alerta
+     * @return json com alerta do consumo
+     */
     private JsonObject verifyConsumption(ClientModel client){
         JsonObject json = new JsonObject();
         if(client.getTotalConsumptions().floatValue() > 0){
@@ -76,6 +87,11 @@ public class ConsumptionAlertController {
         return json;
     }
 
+    /**
+     * Verifica se houve uma grande variação na conta do usuário e gera um alerta
+     * @param client client que receberá o alerta
+     * @return json com alerta da fatura
+     */
     private JsonObject verifyInvoicePrice(ClientModel client){
         List<InvoiceModel> invoices = client.getInvoices();
         JsonObject json = new JsonObject();

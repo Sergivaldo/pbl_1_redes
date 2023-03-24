@@ -10,6 +10,12 @@ import com.google.gson.JsonObject;
 import java.util.Optional;
 
 public class ConsumptionAlertView implements IView {
+
+    /**
+     * Retorna para o usuário um alerta de fatura e consumo
+     * @param request requisição feita pelo cliente
+     * @return resposta HTTP com resultado da requisição
+     */
     @Override
     public HttpResponse get(HttpRequest request) {
         ConsumptionAlertController controller = new ConsumptionAlertController();

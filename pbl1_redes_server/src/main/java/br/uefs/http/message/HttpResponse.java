@@ -8,6 +8,9 @@ import br.uefs.util.DateTime;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Classe que representa uma resposta HTTP
+ */
 public class HttpResponse {
     private HttpStatus status;
     private HttpHeader<String, String> header;
@@ -61,6 +64,11 @@ public class HttpResponse {
     protected void setCommonHeaders(){
         header.put(Headers.DATE.getValue(), DateTime.currentDateTime());
     }
+
+    /**
+     * Gera uma string na estrutura de uma resposta HTTP
+     * @return String com resposta HTTP
+     */
     @Override
     public String toString(){
         final String CRLF = Constants.CRLF.getValue();

@@ -1,12 +1,12 @@
 version: "2"
 services:
   server:
-    image: pbl1_meter
+    image: sergivaldo/pbl1_redes:pbl1_meter
     stdin_open: true
     tty: true
-    build:
-      context: .
-      dockerfile: Dockerfile
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     restart: always
     volumes:
       - /app

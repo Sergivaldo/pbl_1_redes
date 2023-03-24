@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Classe singleton que representa a base de dados do sistema.
+ */
 public class Data {
     private final Map<String, List<ClientModel>> data;
     private static Data instance;

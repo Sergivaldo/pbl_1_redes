@@ -9,7 +9,6 @@ import br.uefs.api_rest.validator.RequestValidator;
 import br.uefs.util.IdGenerator;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.math.BigDecimal;
@@ -25,6 +24,11 @@ public class ClientController {
         this.repository = new ClientRepository();
     }
 
+    /**
+     * Atualiza o consumo total do cliente
+     * @param consumption novo consumo
+     * @param clientModel cliente que será atualizado
+     */
     public void updateTotalConsumptions(double consumption, ClientModel clientModel) {
         BigDecimal currentTotalConsumption = clientModel.getTotalConsumptions();
         clientModel.setTotalConsumptions(currentTotalConsumption.add(
@@ -32,6 +36,11 @@ public class ClientController {
         ));
     }
 
+    /**
+     * Cria um novo cliente
+     * @param body corpo da requisição com nome do cliente
+     * @return booleano indicando se o cliente foi salvo ou não
+     */
     public boolean createClient(String body) {
         String[] expectedFields = {"nome"};
         if (validator.isValidBody(body, expectedFields)) {
@@ -46,6 +55,11 @@ public class ClientController {
         return false;
     }
 
+    /**
+     * Busca por um cliente através do seu id especificado nos parâmetros de consulta
+     * @param parameters parâmetros de consulta
+     * @return Optional com dados do cliente caso este tenha sido encontrado
+     */
     public Optional<String> readClient(Map<String, String> parameters) {
         Optional<String> client = Optional.empty();
         String[] expectedParameters = {"id"};
@@ -63,6 +77,10 @@ public class ClientController {
         return client;
     }
 
+    /**
+     * Busca um cliente pelo id do seu medidor e atualiza a lista de consumos do cliente
+     * @param message mensagem com valor de consumo, horário da medição e código do medidor
+     */
     public void updateClientConsumption(Map<String, String> message) {
         int code = Integer.parseInt(message.get("code"));
         String consumption = message.get("consumption");
@@ -78,6 +96,12 @@ public class ClientController {
         }
     }
 
+    /**
+     * Pega todos os consumos do cliente
+     * @param parameters parâmetro de consulta com id do cliente
+     * @return consumos do cliente
+     * @throws InvalidParameterException Caso um parâmetro inválido seja passado
+     */
     public Optional<String> getClientConsumptions(Map<String, String> parameters) throws InvalidParameterException {
 
         Optional<String> jsonConsumptions = Optional.empty();
@@ -90,11 +114,11 @@ public class ClientController {
                 List<ConsumptionModel> consumptions = client.getConsumptions();
                 PageManager pageManager = new PageManager(consumptions);
                 List<ConsumptionModel> page;
-                if(parameters.containsKey("offset") && parameters.containsKey("limit")) {
+                if (parameters.containsKey("offset") && parameters.containsKey("limit")) {
                     int paginationOffset = Integer.parseInt(parameters.get("offset"));
                     int paginationLimit = Integer.parseInt(parameters.get("limit"));
-                    page = pageManager.createPage(paginationOffset,paginationLimit);
-                }else{
+                    page = pageManager.createPage(paginationOffset, paginationLimit);
+                } else {
                     page = pageManager.createPage();
                 }
                 JsonObject json = new JsonObject();

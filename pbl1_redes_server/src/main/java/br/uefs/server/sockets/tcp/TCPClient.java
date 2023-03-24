@@ -19,6 +19,11 @@ public class TCPClient extends Thread{
         this.clientSocket = client;
     }
 
+    /**
+     * Processa a requisição do cliente a mandando para a API REST.
+     * Este método poderá lançar exceções caso ocorra algum erro durante este processo.
+     * Por fim, é retornada uma resposta HTTP com o resultado da solicitação feita.
+     */
     public void run() {
         try {
             HttpResponse httpResponse;

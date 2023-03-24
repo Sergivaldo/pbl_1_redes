@@ -21,6 +21,13 @@ public class InvoiceController {
         this.repository = new ClientRepository();
     }
 
+    /**
+     * Gera a fatura de um cliente caso o valor mínimo para isso tenha sido atingido
+     * @param parameters parâmetro de consulta com id do cliente
+     * @return Fatura gerada
+     * @throws InvalidParameterException Caso um parâmetro de consulta inválido seja passado
+     * @throws UnavaibleInvoiceException Caso a fatura ainda não esteja disponível para ser gerada
+     */
     public Optional<JsonObject> createInvoice(Map<String,String> parameters) throws InvalidParameterException, UnavaibleInvoiceException {
         String[] expectedParameters = {"id"};
         Optional<JsonObject> invoice = Optional.empty();
@@ -32,7 +39,8 @@ public class InvoiceController {
                 ClientModel client = expectedClient.get();
                 BigDecimal totalConsumption = client.getTotalConsumptions();
                 double invoicePrice =  (3.25 * (totalConsumption.floatValue() / 100));
-                if(invoicePrice > 10){
+                final int MIN_VALUE = 10;
+                if(invoicePrice > MIN_VALUE){
                     InvoiceModel invoiceModel = new InvoiceModel(
                             client.getName(),
                             client.getSmartMeterCode(),

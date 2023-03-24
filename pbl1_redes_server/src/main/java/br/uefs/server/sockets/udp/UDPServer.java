@@ -14,6 +14,10 @@ public class UDPServer extends Thread{
         this.port = port;
     }
 
+    /**
+     * Processa as mensagens recebidas e adiciona o valor de consumo nas informações do
+     * cliente
+     */
     public void run(){
         try {
             DatagramSocket datagramSocket = new DatagramSocket(port);

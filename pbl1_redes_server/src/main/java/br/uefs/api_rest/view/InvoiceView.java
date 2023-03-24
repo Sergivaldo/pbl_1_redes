@@ -11,6 +11,12 @@ import com.google.gson.JsonObject;
 import java.util.Optional;
 
 public class InvoiceView implements IView {
+
+    /**
+     * Retorna para o usuário a sua fatura
+     * @param request requisição feita pelo cliente
+     * @return resposta HTTP com resultado da requisição
+     */
     @Override
     public HttpResponse get(HttpRequest request) {
         InvoiceController controller = new InvoiceController();

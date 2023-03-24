@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
+/**
+ * Classe que representa um cliente
+ */
 public class ClientModel {
     private final int smartMeterCode;
     private final int id;

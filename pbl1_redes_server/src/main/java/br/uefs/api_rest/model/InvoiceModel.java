@@ -1,5 +1,8 @@
 package br.uefs.api_rest.model;
 
+/**
+ * Classe que representa uma fatura
+ */
 public class InvoiceModel {
     private String name;
     private int smartMeterCode;

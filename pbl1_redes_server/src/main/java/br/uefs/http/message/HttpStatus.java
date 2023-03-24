@@ -1,5 +1,8 @@
 package br.uefs.http.message;
 
+/**
+ * Enum que contém status HTTP que foram utilizados na API REST
+ */
 public enum HttpStatus {
     OK("200","OK"),
     NOT_IMPLEMENTED("501","Not Implemented"),

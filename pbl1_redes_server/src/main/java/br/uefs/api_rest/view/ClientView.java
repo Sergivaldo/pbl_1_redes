@@ -15,12 +15,18 @@ public class ClientView implements IView {
         this.controller = new ClientController();
     }
 
+    /**
+     * Retorna para o usuário informações do cliente buscado
+     * @param request requisição feita pelo cliente
+     * @return resposta HTTP com resultado da requisição
+     */
     @Override
     public HttpResponse get(HttpRequest request) {
         Optional<String> clientJson = controller.readClient(request.getQueryParameters());
         return clientJson.isPresent()? new HttpResponse(HttpStatus.OK,clientJson.get().toString())
                 : new HttpResponse(HttpStatus.NOT_FOUND);
     }
+
 
     @Override
     public HttpResponse put(HttpRequest request) {
@@ -31,6 +37,11 @@ public class ClientView implements IView {
         return new HttpResponse(HttpStatus.METHOD_NOT_ALLOWED, responseBody.toString());
     }
 
+    /**
+     * Cria um novo cliente no sistema
+     * @param request requisição feita pelo cliente
+     * @return resposta HTTP com resultado da requisição
+     */
     @Override
     public HttpResponse post(HttpRequest request) {
         HttpResponse response = controller.createClient(request.getBody())?

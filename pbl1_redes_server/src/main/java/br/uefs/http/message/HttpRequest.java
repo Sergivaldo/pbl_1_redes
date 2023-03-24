@@ -6,6 +6,9 @@ import br.uefs.util.Constants;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Classe que representa uma requisição HTTP
+ */
 public class HttpRequest {
     private HttpMethod method;
     private String path;

@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UDPMessage {
+
+    /**
+     * Converte a mensagem recebida do medidor em um objeto map
+     * @param message Mensagem recebida do medidor
+     * @return Map com cada parte da mensagem
+     */
     public Map<String,String> toMap(String message){
         String[] messageParts = message.split(";");
         Map<String,String> messageMap = new HashMap<>();
