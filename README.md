@@ -29,7 +29,7 @@ O sistema possui as seguinte funcionalidades:
 
 #### Executando o arquivo jar do medidor
 
-`javar -jar pbl1_redes_medidor-1.0-jar-with-dependencies.jar` 
+`java -jar pbl1_redes_medidor-1.0-jar-with-dependencies.jar` 
 
 #### Executando através do docker compose
 
