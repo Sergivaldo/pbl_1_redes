@@ -39,19 +39,15 @@ O sistema possui as seguinte funcionalidades:
 
 &nbsp;&nbsp;&nbsp;[**1.** Diagrama do projeto](#secao1)
 
-&nbsp;&nbsp;&nbsp;[**2.** Rotas utilizadas](#secao2)
+&nbsp;&nbsp;&nbsp;[**2.** Servidor HTTP](#secao2)
 
-## Conceitos
+&nbsp;&nbsp;&nbsp;[**3.** API REST](#secao3)
 
-**HTTP** - Protocolo de rede da camada de aplicação que permite a obtenção de recursos. É a base de qualquer troca de dados na Web e um protocolo cliente-servidor, o que significa que as requisições são iniciadas pelo destinatário, geralmente um navegador da Web. O HTTP é enviado sobre um protocolo da camada de transporte, o TCP.
+&nbsp;&nbsp;&nbsp;[**4.** Medidor Inteligente](#secao4)
 
-**TCP** -
+&nbsp;&nbsp;&nbsp;[**5.** Materiais Utilizados](#secao5)
 
-**UDP** -
-
-**Sockets** -
-
-
+<a id="secao1"></a>
 ## Diagrama do projeto
 
 ![Diagrama pbl1png](https://user-images.githubusercontent.com/72475500/227080946-8667a983-8493-41df-b975-191ec4e137c2.png)
@@ -68,6 +64,7 @@ Na comunicação entre o cliente(consumidor) e o servidor foi utilizado um socke
 
 Para a comunicação entre o medidor e o servidor também foi utilizado um socket, entretanto, utilizando um protocolo diferente, o UDP. O medidor ficará enviando dados para o servidor que os salvará na base de dados. Como o medidor inteligente estará enviando mensagens ao servidor de forma síncrona(em um determinado intervalo de tempo) utilizar um protocolo como o TCP junto com HTTP seria muito custoso já que uma mensagem de resposta seria retornada para o dispositivo e cada requisição passaria por um processo de verificação para checar se sua estrutura está correta o que não é necessário nessa transmissão, pois um simples protocolo que especifica que no corpo mensagem deverá conter o código do medidor, horário e valor da medição já é o suficiente.
 
+<a id="secao2"></a>
 ## Servidor HTTP
 
 Visto que o usuário utilizará o sistema através de uma API REST, é necessário fazer o uso de um servidor HTTP já que uma API desse tipo tem sua comunicação feita por este. O meio de comunicação utilizado no projeto é um socket que puro não é capaz de entender este protocolo, sendo assim, foi necessário fazer com o socket fosse capaz de entender essas mensagens e que também o mesmo pudesse enviar mensagens seguindo esse padrão.
@@ -145,6 +142,7 @@ Após fazer o socket entender mensagens HTTP, foi necessário fazer com que ele 
 
 O funcionamento da conexão do servidor com o cliente acontece da seguinte forma: O servidor fica esperando um cliente se conectar e após a conexão ser feita o servidor irá processar a sua requisição, entretanto, o servidor só processa a requisição do próximo usuário após terminar a do atual. A forma de resolver esse problema é após aceitar a conexão com o cliente o servidor criar uma nova thread para o usuário, essa thread será a responsável por gerenciar a solicitação. Sendo assim, agora cada usuário terá sua própria thread o que permite o servidor receber vários clientes ao mesmo tempo.
 
+<a id="secao3"></a>
 ## API REST
 
 Uma API  (Application Programming Interface ou Interface de Programação de Aplicação) é um conjunto de definições e protocolos usado no desenvolvimento e na integração de aplicações. 
@@ -305,6 +303,33 @@ Resposta:
   "preco":"00.00"
 }
 ```
+<a id="secao4"></a>
+## Medidor Inteligente
+
+O medidor dentro do sistema será o dispositivo que enviará as medições de consumo do seu cliente. Esse consumo é gerado de forma aleatória com base em uma taxa de 
+consumo que pode ser especificada pelo usuário no menu, o cálculo para gerar o valor é feito da seguinte forma: *`aleatório entre 0 e 1.0 * taxa definida`*
+
+O dispositivo também possui uma interface para fazer configurações de conexão com o servidor, nesta configuração pode ser especificado o código do medidor, host do servidor, porta do servidor  e o intervalo de tempo em segundo no qual será enviado os dados. Na primeira vez que o medidor é iniciado esse menu é mostrado já que o aparelho ainda não foi configurado, sendo assim, somente após a sua configuração o medidor poderá enviar informações ao servidor.
+
+### Protocolo de comunicação
+
+O medidor possui um protocolo simples para fazer o envio dos dados de consumo, pois, como ele ficará sempre enviando dados ao servidor, esse comunicação deve ser a mais leve possível para evitar sobrecargas por conta de mensagens muito pesadas.
+
+Dessa forma, o protocolo foi estruturado da seguinte maneira:
+
+`código_do_medidor;valor_da_medição;horário_da_medição` 
+
+Basicamente, a mensagem é formada por três informações apenas, o código do medidor, seguido do valor da medição e por fim o horário em que foi feita a medição do consumo. Esses dados são enviados para o servidor através de um socket UDP onde apenas o dispositivo transmite.
+<a id="secao5"></a>
+## Materiais utilizados
+
+[Mensagens HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Messages)
+
+[Status de respostas](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status)
+
+[Métodos de requisição](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods)
+
+[Sockets em Java](https://www.devmedia.com.br/java-sockets-criando-comunicacoes-em-java/9465)
 
 
 #### ⬆️ [Voltar ao topo](#inicio)
